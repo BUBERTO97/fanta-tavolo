@@ -1,0 +1,29 @@
+.main-header {
+  background-color: #2c3e50; /* Un blu scuro elegante */
+  color: white;
+  padding: 1rem 2rem;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 100%;
+
+  h1 {
+    margin: 0;
+    font-size: 2rem;
+  }
+}
+
+.content {
+  flex: 1; // Fa in modo che il contenuto principale occupi tutto lo spazio disponibile
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto; // Centra il contenuto orizzontalmente
+  width: 100%;
+}
+
+.main-footer {
+  text-align: center;
+  padding: 1rem;
+  background-color: #34495e; /* Un blu leggermente più chiaro per il footer */
+  color: #ecf0f1;
+  font-size: 0.9rem;
+}
