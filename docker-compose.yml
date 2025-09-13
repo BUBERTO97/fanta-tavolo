@@ -1,23 +1,17 @@
-# docker-compose.yml
 version: '3.8'
 
 services:
   # Servizio per il Frontend
   frontend:
     container_name: fanta-tavolo-frontend
-    # Costruisce l'immagine usando il Dockerfile nella cartella ./frontend
     build:
       context: ./frontend
       dockerfile: Dockerfile
-    ports:
-      # Mappa la porta 8080 del tuo computer alla porta 80 del container
-      - "8080:80"
     restart: unless-stopped
 
   # Servizio per il Backend (configurazione)
   backend:
     container_name: fanta-tavolo-backend
-    # Costruisce l'immagine usando il Dockerfile nella cartella ./backend
     build:
       context: ./backend
       dockerfile: Dockerfile
