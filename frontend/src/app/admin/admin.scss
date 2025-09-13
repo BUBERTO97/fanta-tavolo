@@ -1,113 +1,253 @@
-.admin-container {
-  padding: 2rem;
+:host {
+  --primary-color: #3498db;
+  --secondary-color: #2c3e50;
+  --success-color: #27ae60;
+  --danger-color: #e74c3c;
+  --warning-color: #f39c12;
+  --light-gray: #f8f9fa;
+  --border-color: #dee2e6;
+  --text-color: #343a40;
+  --text-color-light: #6c757d;
+  --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --border-radius: 8px;
 }
 
-h2 {
-  margin-bottom: 2rem;
+.admin-container {
+  padding: 1rem; // Ridotto per mobile
+  max-width: 900px;
+  margin: 0 auto;
+  color: var(--text-color);
+
+  @media (min-width: 768px) {
+    padding: 2rem;
+  }
+}
+
+.admin-header {
   text-align: center;
+  margin-bottom: 2.5rem;
+  h2 {
+    font-size: 2.5rem;
+    color: var(--secondary-color);
+    margin-bottom: 0.5rem;
+  }
+  p {
+    font-size: 1.1rem;
+    color: var(--text-color-light);
+  }
 }
 
 .admin-section {
-  background-color: #f9f9f9;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
-  padding: 1.5rem;
+  background-color: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
   margin-bottom: 2rem;
+  box-shadow: var(--box-shadow);
+  overflow: hidden;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  background-color: var(--light-gray);
+  border-bottom: 1px solid var(--border-color);
+  cursor: pointer;
 
   h3 {
-    margin-bottom: 1rem;
+    margin: 0;
+    color: var(--secondary-color);
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .icon { font-size: 1.5rem; }
+}
+
+.section-content {
+  padding: 1.5rem;
+  p {
+    color: var(--text-color-light);
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
   }
 }
 
-.file-upload {
-  margin-top: 1rem;
-}
-
-.game-actions {
-  display: flex;
-  gap: 1rem;
-  margin-top: 1rem;
-}
-
-.btn-confirm, .btn-calculate {
-  padding: 0.8rem 1.5rem;
+// Stili per i Pulsanti
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
   border: none;
-  border-radius: 4px;
-  color: white;
+  border-radius: var(--border-radius);
   cursor: pointer;
   font-weight: bold;
-}
+  font-size: 1rem;
+  transition: all 0.2s ease-in-out;
 
-.btn-confirm {
-  background-color: #e67e22;
+  &:hover { transform: translateY(-2px); box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+  &:disabled { background-color: #bdc3c7; cursor: not-allowed; transform: none; box-shadow: none;}
 }
+.btn-primary { background-color: var(--primary-color); color: white; }
+.btn-success { background-color: var(--success-color); color: white; }
+.btn-danger { background-color: var(--danger-color); color: white; }
+.btn-toggle { background-color: var(--text-color-light); color: white; padding: 0.5rem 1rem; font-size: 0.9rem;}
+.btn-full-width { width: 100%; justify-content: center; }
 
-.btn-calculate {
-  background-color: #27ae60;
-}
-
+// Stili per l'upload e tabelle
 .upload-area {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 1rem;
-  margin-top: 1rem;
+  margin: 1.5rem 0;
 }
 
-.btn-upload, .btn-confirm-upload {
-  padding: 0.6rem 1.2rem;
-  border-radius: 4px;
-  border: none;
-  color: white;
-  cursor: pointer;
+.table-container, .voters-list {
+  margin-top: 1.5rem;
+  overflow-x: auto; // Per la responsività su schermi piccoli
 }
 
-.btn-upload { background-color: #3498db; }
-.btn-confirm-upload { background-color: #27ae60; }
+table {
+  width: 100%;
+  border-collapse: collapse;
 
-.file-name {
-  font-style: italic;
-  color: #555;
-}
+  th, td {
+    border: 1px solid var(--border-color);
+    padding: 0.8rem 1rem;
+    text-align: left;
+    vertical-align: middle;
+  }
 
-.table-container {
-  margin-top: 2rem;
+  th {
+    background-color: var(--light-gray);
+    font-weight: 600;
+  }
 
-  h4 { margin-bottom: 1rem; }
+  tr:nth-child(even) {
+    background-color: var(--light-gray);
+  }
 
-  table {
+  input, select {
     width: 100%;
-    border-collapse: collapse;
-
-    th, td {
-      border: 1px solid #ddd;
-      padding: 0.8rem;
-      text-align: left;
-    }
-
-    th {
-      background-color: #f2f2f2;
-    }
-
-    input {
-      width: 100%;
-      padding: 0.5rem;
-      border: 1px solid #ccc;
-      border-radius: 4px;
+    padding: 0.6rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    &:focus {
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+      outline: none;
     }
   }
 }
 
-.btn-save-table {
-  margin-top: 1rem;
-  padding: 0.8rem 1.5rem;
-  border: none;
-  border-radius: 4px;
+// Stili specifici per la gestione partita
+.status {
+  padding: 0.3rem 0.8rem;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: bold;
   color: white;
-  background-color: #3498db;
-  cursor: pointer;
+  background-color: var(--warning-color);
+  &.confirmed { background-color: var(--success-color); }
+}
 
-  &:disabled {
-    background-color: #bdc3c7;
-    cursor: not-allowed;
+
+.results-entry, .final-actions {
+  margin-top: 2.5rem;
+  border-top: 1px solid var(--border-color);
+  padding-top: 1.5rem;
+}
+
+.table-card {
+  border: 1px solid #ecf0f1;
+  padding: 1rem;
+  margin-top: 1rem;
+  border-radius: 6px;
+  background-color: var(--light-gray);
+}
+.form-field, .form-field-inline {
+  margin-bottom: 1rem;
+  label { display: block; margin-bottom: 0.3rem; font-weight: 500;}
+  input, select { width: 100%; padding: 0.6rem; border: 1px solid #ccc; border-radius: 4px; }
+}
+.btn-add-major, .btn-add-minor {
+  border: 1px dashed var(--primary-color);
+  background: none;
+  color: var(--primary-color);
+  padding: 0.5rem;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  border-radius: 4px;
+}
+
+// Animazione
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-15px); max-height: 0; }
+  to { opacity: 1; transform: translateY(0); max-height: 1000px; /* Valore grande per permettere l'espansione */ }
+}
+.slide-down {
+  animation: slideDown 0.5s ease-out forwards;
+}
+
+// --- Configuration ---
+// Add or remove abbreviations and properties as needed.
+$properties: (
+  "margin": "margin",
+  "m": "margin",
+  "mt": "margin-top",
+  "mr": "margin-right",
+  "mb": "margin-bottom",
+  "ml": "margin-left",
+  "mx": ("margin-left", "margin-right"), // Horizontal axis
+  "my": ("margin-top", "margin-bottom")  // Vertical axis
+);
+
+// Set the maximum size you want to generate (e.g., 5 will create classes up to .m-5)
+$max-size: 5;
+$unit: "rem";
+
+
+// --- Class Generation ---
+@each $prefix, $props in $properties {
+  @for $i from 0 through $max-size {
+    .#{$prefix}-#{$i} {
+      // If the property is a list (like for mx and my)
+      @if type-of($props) == "list" {
+        @each $prop in $props {
+          #{$prop}: #{$i}#{$unit};
+        }
+      } @else {
+        // Otherwise, it's a single property
+        #{$props}: #{$i}#{$unit};
+      }
+    }
+  }
+}
+
+.game-status-control {
+  background-color: var(--light-gray);
+  padding: 1.5rem;
+  border-radius: var(--border-radius);
+  margin-bottom: 2rem;
+  text-align: center;
+
+  h4 {
+    margin-top: 0;
+  }
+
+  .status {
+    font-weight: bold;
+    color: white;
+    &.locked { background-color: var(--danger-color); }
+    &.unlocked { background-color: var(--success-color); }
+  }
+
+  button {
+    margin-top: 1rem;
   }
 }

@@ -19,4 +19,9 @@ export interface Pronostico {
   userId: string;
   userEmail: string;
   tavoli: Tavolo[];
+  confermato?: boolean;
+}
+
+export interface GameSettings {
+  predictionsLocked: boolean;
 }

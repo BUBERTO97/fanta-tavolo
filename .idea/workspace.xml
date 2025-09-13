@@ -4,23 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f8d5e47b-9a52-404c-96e2-88fdd0d3bbc0" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/frontend/src/app/admin/admin.routes.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/app/auth/auth.routes.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/app/game/game.models.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/app/game/game.routes.ts" afterDir="false" />
+    <list default="true" id="f8d5e47b-9a52-404c-96e2-88fdd0d3bbc0" name="Changes" comment="Aggiunto sistema di voti, aggiunta pagina amministratore">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/firestore.rules" beforeDir="false" afterPath="$PROJECT_DIR$/backend/firestore.rules" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/app.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/app.config.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/app.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/app.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/app.routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/app.routes.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/app.scss" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/app.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/app.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/app.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/main.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/main.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/styles.scss" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/styles.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/admin/admin.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/admin/admin.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/admin/admin.scss" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/admin/admin.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/admin/admin.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/admin/admin.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/game/game.models.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/game/game.models.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/game/game.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/game/game.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/game/prediction/prediction.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/game/prediction/prediction.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/game/prediction/prediction.scss" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/game/prediction/prediction.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/game/prediction/prediction.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/game/prediction/prediction.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -97,6 +91,15 @@
       <updated>1757713323341</updated>
       <workItem from="1757713324383" duration="2398000" />
     </task>
+    <task id="LOCAL-00001" summary="Aggiunto sistema di voti, aggiunta pagina amministratore">
+      <option name="closed" value="true" />
+      <created>1757758420293</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1757758420293</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -115,5 +118,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Aggiunto sistema di voti, aggiunta pagina amministratore" />
+    <option name="LAST_COMMIT_MESSAGE" value="Aggiunto sistema di voti, aggiunta pagina amministratore" />
   </component>
 </project>

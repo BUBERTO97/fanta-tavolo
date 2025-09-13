@@ -1,54 +1,188 @@
 <div class="admin-container">
-  <h2>Pannello Amministratore</h2>
+  <header class="admin-header">
+    <h2>Pannello Amministratore</h2>
+    <p>Gestisci gli aspetti fondamentali del gioco Fanta Tavolo.</p>
+  </header>
 
   <section class="admin-section">
-    <h3>Gestione Invitati</h3>
-    <p>Carica il file Excel (in formato CSV) con la lista degli invitati.</p>
-
-    <div class="upload-area">
-      <input type="file" id="invitati-file" (change)="onFileChange($event)" accept=".csv" #fileInput hidden>
-      <button (click)="fileInput.click()" class="btn-upload">Seleziona File</button>
-      @if (fileName) {
-        <span class="file-name">Selezionato: {{ fileName }}</span>
-        <button (click)="confirmUpload()" class="btn-confirm-upload">Conferma e Salva in Firebase</button>
-      }
+    <div class="section-header">
+      <h3>
+        <span class="icon">👥</span>
+        Gestione Invitati
+      </h3>
+      <button (click)="showInvitatiTable.set(!showInvitatiTable())" class="btn btn-toggle">
+        {{ showInvitatiTable() ? 'Nascondi Dettagli' : 'Mostra Dettagli' }}
+      </button>
     </div>
 
-    <div class="table-container">
-      <h4>Invitati Attuali</h4>
-      @if (invitatiRows.length > 0) {
-        <form [formGroup]="invitatiForm" (ngSubmit)="saveTableChanges()">
-          <table>
+    @if (showInvitatiTable()) {
+      <div class="section-content slide-down">
+        <p>Carica la lista completa degli invitati tramite un file CSV o modifica i dati esistenti.</p>
+        <div class="upload-area">
+          <input type="file" id="invitati-file" (change)="onFileChange($event)" accept=".csv" #fileInput hidden>
+          <button (click)="fileInput.click()" class="btn btn-primary">
+            <span class="icon">📄</span> Scegli File
+          </button>
+          @if (fileName) {
+            <span class="file-name">{{ fileName }}</span>
+            <button (click)="confirmUpload()" class="btn btn-success">
+              <span class="icon">✔️</span> Carica
+            </button>
+          }
+        </div>
+
+        <div class="table-container">
+          @if (invitati().length > 0) {
+            <form [formGroup]="invitatiForm" (ngSubmit)="saveTableChanges()">
+              <table>
+                <thead>
+                <tr>
+                  <th>Nome</th>
+                  <th>Cognome</th>
+                  <th>Azienda</th>
+                  <th>Accompagnatore</th>
+                </tr>
+                </thead>
+                <tbody formArrayName="rows">
+                  @for (row of invitatiRows.controls; track row.value.id; let i = $index) {
+                    <tr [formGroupName]="i">
+                      <td><input formControlName="nome"></td>
+                      <td><input formControlName="cognome"></td>
+                      <td><input formControlName="company"></td>
+                      <td><input formControlName="plus1"></td>
+                    </tr>
+                  }
+                </tbody>
+              </table>
+              <button type="submit" [disabled]="!invitatiForm.dirty" class="btn btn-primary btn-full-width">
+                Salva Modifiche Tabella
+              </button>
+            </form>
+          } @else {
+            <p class="empty-state">Nessun invitato presente. Carica un file per iniziare.</p>
+          }
+        </div>
+      </div>
+    }
+  </section>
+  <section class="admin-section">
+    <div class="section-header">
+      <h3><span class="icon">🕹️</span> Stato Partita</h3>
+    </div>
+    <div class="section-content">
+      <div class="game-status-control">
+        <h4>Stato Previsioni</h4>
+        @if (gameSettings(); as settings) {
+          <p>
+            Attualmente, gli utenti
+            @if (settings.predictionsLocked) {
+              <span class="status locked">NON POSSONO</span>
+            } @else {
+              <span class="status unlocked">POSSONO</span>
+            }
+            salvare le loro previsioni.
+          </p>
+          <button (click)="togglePredictionsLock()"
+                  class="btn"
+                  [class.btn-danger]="!settings.predictionsLocked"
+                  [class.btn-success]="settings.predictionsLocked">
+            {{ settings.predictionsLocked ? 'Sblocca Previsioni' : 'Blocca Previsioni' }}
+          </button>
+        }
+      </div>
+
+      <div class="voters-list">
+      </div>
+    </div>
+  </section>
+  <section class="admin-section">
+    <div class="section-header">
+      <h3>
+        <span class="icon">📊</span>
+        Statistiche Partita
+      </h3>
+    </div>
+    <div class="section-content">
+      <div class="voters-list">
+        <h4>Voti Ricevuti ({{ votiConfermatiSummary() }})</h4>
+        @if (voters().length > 0) {
+          <table class="mt-1">
             <thead>
             <tr>
-              <th>Nome</th>
-              <th>Cognome</th>
-              <th>Azienda</th>
-              <th>Accompagnatore</th>
+              <th>Utente</th>
+              <th>Stato Voto</th>
+              <th>Azione</th>
             </tr>
             </thead>
-            <tbody formArrayName="rows">
-              @for (row of invitatiRows.controls; track row.value.id; let i = $index) {
-                <tr [formGroupName]="i">
-                  <td><input formControlName="nome"></td>
-                  <td><input formControlName="cognome"></td>
-                  <td><input formControlName="company"></td>
-                  <td><input formControlName="plus1"></td>
+            <tbody>
+              @for (voter of voters(); track voter.userId) {
+                <tr>
+                  <td>{{ voter.userEmail }}</td>
+                  <td>
+                    <span class="status" [class.confirmed]="voter.confermato">
+                      {{ voter.confermato ? 'Confermato' : 'Da confermare' }}
+                    </span>
+                  </td>
+                  <td>
+                    <button (click)="toggleConfermaVoto(voter)" class="btn btn-toggle-vote">
+                      {{ voter.confermato ? 'Annulla' : 'Conferma' }}
+                    </button>
+                  </td>
                 </tr>
               }
             </tbody>
           </table>
-          <button type="submit" [disabled]="!invitatiForm.dirty" class="btn-save-table">
-            Salva Modifiche
-          </button>
+        } @else {
+          <p class="empty-state">Nessun utente ha ancora inviato un pronostico.</p>
+        }
+      </div>
+
+      <div class="results-entry">
+        <h4>Inserisci Risultati Ufficiali</h4>
+        <form [formGroup]="risultatiForm" (ngSubmit)="salvaRisultati()">
+          <div class="form-field mt-1">
+            <label>Numero Totale Tavoli Corretto:</label>
+            <input type="number" formControlName="numeroTavoliCorretto">
+          </div>
+
+          <div formArrayName="tavoli">
+            @for (tavolo of tavoliRisultati.controls; track $index; let i = $index) {
+              <div class="table-card" [formGroupName]="i">
+                <h5>Tavolo Ufficiale {{ i + 1 }}</h5>
+                <div class="form-field">
+                  <label>Numero Posti Corretto:</label>
+                  <input type="number" formControlName="numeroPostiCorretto">
+                </div>
+                <div formArrayName="posti">
+                  @for(posto of postiRisultati(i).controls; track $index; let j = $index) {
+                    <div class="form-field-inline">
+                      <label>Posto {{ j + 1 }}:</label>
+                      <select [formControlName]="j">
+                        <option [ngValue]="null">-- Seleziona invitato --</option>
+                        @for (invitato of invitati(); track invitato.id) {
+                          <option [ngValue]="invitato.id">{{ invitato.nome }} {{ invitato.cognome }}</option>
+                        }
+                      </select>
+                    </div>
+                  }
+                </div>
+                <button type="button" (click)="aggiungiPostoRisultati(i)" class="btn-add-minor">+ Aggiungi Posto</button>
+              </div>
+            }
+          </div>
+          <button type="button" (click)="aggiungiTavoloRisultati()" class="btn-add-major">+ Aggiungi Tavolo</button>
+          <button type="submit" [disabled]="risultatiForm.invalid" class="btn btn-success btn-full-width mt-2">Salva Risultati</button>
         </form>
-      } @else {
-        <p>Nessun invitato presente. Carica un file per iniziare.</p>
-      }
+      </div>
+
+      <div class="final-actions">
+        <h4>Finalizzazione</h4>
+        <p>Calcola i punteggi basati sui risultati ufficiali e genera la classifica. Questa azione è definitiva.</p>
+        <button (click)="calcolaClassifica()" class="btn btn-danger btn-full-width">
+          <span class="icon">🏆</span> Calcola Classifica Finale
+        </button>
+      </div>
     </div>
   </section>
 
-  <section class="admin-section">
-    <h3>Gestione Partita</h3>
-  </section>
 </div>

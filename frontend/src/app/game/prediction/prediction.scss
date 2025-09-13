@@ -162,3 +162,13 @@ input[type="number"], select {
   align-items: center;
   justify-content: center;
 }
+
+.locked-banner {
+  background-color: #f39c12;
+  color: white;
+  padding: 1rem;
+  border-radius: 8px;
+  text-align: center;
+  margin-bottom: 2rem;
+  font-weight: bold;
+}

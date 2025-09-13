@@ -1,7 +1,16 @@
 import { Injectable, inject } from '@angular/core';
-import {Firestore, collection, doc, setDoc, getDoc, collectionData, writeBatch} from '@angular/fire/firestore';
+import {
+  Firestore,
+  collection,
+  doc,
+  setDoc,
+  getDoc,
+  collectionData,
+  writeBatch,
+  updateDoc, onSnapshot
+} from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import { Invitato, Pronostico } from './game.models';
+import {GameSettings, Invitato, Pronostico} from './game.models';
 
 @Injectable({
   providedIn: 'root'
@@ -33,17 +42,39 @@ export class GameService {
   uploadInvitati(invitati: Invitato[]): Promise<void> {
     const batch = writeBatch(this.firestore);
     invitati.forEach(invitato => {
-      // Usiamo l'ID fornito dal CSV come ID del documento
       const invitatoDoc = doc(this.firestore, `invitati/${invitato.id}`);
-      // L'opzione { merge: true } aggiorna i campi senza cancellare dati non presenti nel nuovo oggetto
       batch.set(invitatoDoc, invitato, { merge: true });
     });
     return batch.commit();
   }
 
-  // NUOVA FUNZIONE: Aggiorna un singolo invitato
   updateInvitato(invitato: Invitato): Promise<void> {
     const invitatoDoc = doc(this.firestore, `invitati/${invitato.id}`);
     return setDoc(invitatoDoc, invitato, { merge: true });
+  }
+
+  confermaVoto(userId: string, status: boolean): Promise<void> {
+    const pronosticoDoc = doc(this.firestore, `pronostici/${userId}`);
+    return updateDoc(pronosticoDoc, { confermato: status });
+  }
+
+  saveRisultatiUfficiali(risultati: any): Promise<void> {
+    const risultatiDoc = doc(this.firestore, 'risultati/ufficiali');
+    return setDoc(risultatiDoc, risultati, { merge: true });
+  }
+
+  getGameSettings(): Observable<GameSettings> {
+    const settingsDoc = doc(this.firestore, 'settings/game');
+    return new Observable(subscriber => {
+      const unsubscribe = onSnapshot(settingsDoc, (doc) => {
+        subscriber.next(doc.data() as GameSettings);
+      });
+      return () => unsubscribe();
+    });
+  }
+
+  updateGameSettings(settings: Partial<GameSettings>): Promise<void> {
+    const settingsDoc = doc(this.firestore, 'settings/game');
+    return setDoc(settingsDoc, settings, { merge: true });
   }
 }

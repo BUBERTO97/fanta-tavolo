@@ -1,5 +1,12 @@
 <div class="prediction-container" (click)="closeTooltip()">
-  <h2>Il Tuo Pronostico</h2>
+  @if (gameSettings()?.predictionsLocked) {
+    <div class="locked-banner">
+      Le previsioni sono state chiuse dall'amministratore. Puoi solo visualizzare la tua giocata.
+    </div>
+  }
+
+  <h2>{{ gameSettings()?.predictionsLocked ? 'La Tua Previsione (Bloccata)' : 'Crea il Tuo Pronostico' }}</h2>
+
   <form [formGroup]="predictionForm" (ngSubmit)="onSubmit()">
 
     <div formArrayName="tavoli">

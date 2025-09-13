@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import {Component, OnInit, inject, effect} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../auth/auth.service';
@@ -26,10 +26,22 @@ export class PredictionComponent implements OnInit {
 
   activeTooltip: { tableIndex: number; seatIndex: number } | null = null;
 
+  gameSettings = toSignal(this.gameService.getGameSettings());
+
+
 
   constructor() {
     this.predictionForm = this.fb.group({
       tavoli: this.fb.array([])
+    });
+
+    effect(() => {
+      const locked = this.gameSettings()?.predictionsLocked;
+      if (locked === true) {
+        this.predictionForm.disable(); // Disabilita l'intero form
+      } else if (locked === false) {
+        this.predictionForm.enable(); // Riabilita l'intero form
+      }
     });
   }
 
