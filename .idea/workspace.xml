@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f8d5e47b-9a52-404c-96e2-88fdd0d3bbc0" name="Changes" comment="sistemazione deploy errors">
+    <list default="true" id="f8d5e47b-9a52-404c-96e2-88fdd0d3bbc0" name="Changes" comment="fix dockercompose">
+      <change afterPath="$PROJECT_DIR$/frontend/public/fanta_evento_3.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,6 +50,7 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/frontend/public" />
       <recent name="$PROJECT_DIR$/backend" />
     </key>
   </component>
@@ -123,7 +125,15 @@
       <option name="project" value="LOCAL" />
       <updated>1757770750779</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="fix dockercompose">
+      <option name="closed" value="true" />
+      <created>1757771090437</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1757771090437</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -148,6 +158,7 @@
     <MESSAGE value="aggiunto blocco utenti" />
     <MESSAGE value="aggiunta sezione calcolo leader board" />
     <MESSAGE value="sistemazione deploy errors" />
-    <option name="LAST_COMMIT_MESSAGE" value="sistemazione deploy errors" />
+    <MESSAGE value="fix dockercompose" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix dockercompose" />
   </component>
 </project>
