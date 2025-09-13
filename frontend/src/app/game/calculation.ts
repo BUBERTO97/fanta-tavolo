@@ -9,7 +9,6 @@ export class CalculationService {
   calculateScore(pronostico: Pronostico, risultatiUfficiali: RisultatiUfficiali, rules: ScoringRules) {
     let score = 0;
 
-    // 1. Calcolo Punti Base (Posti a sedere)
     pronostico.tavoli.forEach((tavoloPronosticato, indexTavolo) => {
       const tavoloUfficiale = risultatiUfficiali.tavoli[indexTavolo];
       if (!tavoloUfficiale) return;

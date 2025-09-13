@@ -11,7 +11,6 @@ import { AuthService } from '../auth.service';
   styleUrl: './login.scss',
 })
 export class LoginComponent {
-  // Usiamo inject() come da best practice
   private readonly formBuilder = inject(FormBuilder);
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
@@ -23,7 +22,6 @@ export class LoginComponent {
     password: ['', Validators.required],
   });
 
-  // Logica del pulsante "Accedi"
   onSubmit() {
     if (this.loginForm.invalid) {
       return;
@@ -34,7 +32,6 @@ export class LoginComponent {
 
     this.authService.login({ email, password }).subscribe({
       next: () => {
-        // Redirect alla home page del gioco (che creeremo)
         this.router.navigate(['/']);
       },
       error: (err) => {

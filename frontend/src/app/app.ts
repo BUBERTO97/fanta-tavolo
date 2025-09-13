@@ -15,8 +15,6 @@ export class App {
   protected readonly title = signal('Fanta Tavolo');
   private readonly authService = inject(AuthService);
 
-  // Convertiamo gli observables dal servizio in segnali
-  // In questo modo il template si aggiornerà automaticamente
   user = toSignal(this.authService.user$);
   isAdmin = toSignal(this.authService.isAdmin());
 

@@ -83,14 +83,12 @@ export class GameService {
     return setDoc(rulesDoc, rules);
   }
 
-  // Recupera le regole di punteggio
   async getScoringRules(): Promise<ScoringRules | null> {
     const rulesDoc = doc(this.firestore, 'settings/scoring');
     const snapshot = await getDoc(rulesDoc);
     return snapshot.exists() ? snapshot.data() as ScoringRules : null;
   }
 
-  // Salva l'intera classifica in un'unica operazione
   saveLeaderboard(leaderboard: LeaderboardEntry[]): Promise<void> {
     const batch = writeBatch(this.firestore);
     leaderboard.forEach(entry => {
@@ -100,23 +98,17 @@ export class GameService {
     return batch.commit();
   }
 
-  // Recupera tutti i pronostici CONFERMATI
   async getConfirmedPronostici(): Promise<Pronostico[]> {
     const pronosticiCol = collection(this.firestore, 'pronostici');
-    // 1. Crea una query sulla collezione...
     const q = query(pronosticiCol, where("confermato", "==", true));
-    // 2. Esegui la query
     const querySnapshot = await getDocs(q);
-    // 3. Mappa i risultati
     return querySnapshot.docs.map(d => d.data() as Pronostico);
   }
 
   async getRisultatiUfficiali(): Promise<RisultatiUfficiali | null> {
-    // Il documento dei risultati ha un ID fisso "ufficiali" per essere facilmente reperibile
     const risultatiDoc = doc(this.firestore, 'risultati/ufficiali');
     const snapshot = await getDoc(risultatiDoc);
 
-    // Se il documento esiste, restituisce i suoi dati, altrimenti null
     return snapshot.exists() ? snapshot.data() as RisultatiUfficiali : null;
   }
 }

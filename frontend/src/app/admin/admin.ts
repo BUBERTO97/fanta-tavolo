@@ -18,7 +18,7 @@ import {from} from 'rxjs';
 export class AdminComponent implements OnInit {
   private readonly gameService = inject(GameService);
   private readonly fb = inject(FormBuilder);
-  private readonly calculationService = inject(CalculationService); // Inietta il servizio
+  private readonly calculationService = inject(CalculationService);
 
 
   // --- Sezione Gestione Invitati ---
@@ -77,7 +77,6 @@ export class AdminComponent implements OnInit {
     });
   }
 
-  // --- Metodi per Gestione Invitati ---
 
   populateInvitatiForm(invitati: Invitato[]) {
     this.invitatiRows.clear();
@@ -156,7 +155,6 @@ export class AdminComponent implements OnInit {
       .catch(err => alert(`Errore nel salvataggio: ${err.message}`));
   }
 
-  // --- Metodi per Gestione Partita ---
   toggleConfermaVoto(voter: Pronostico) {
     const nuovoStato = !voter.confermato;
     this.gameService.confermaVoto(voter.userId, nuovoStato)

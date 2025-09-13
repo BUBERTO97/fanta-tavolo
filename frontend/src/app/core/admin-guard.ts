@@ -11,9 +11,8 @@ export const adminGuard: CanActivateFn = (route, state) => {
     take(1),
     map(isAdmin => {
       if (isAdmin) {
-        return true; // L'utente è un admin, accesso consentito
+        return true;
       }
-      // Non è un admin, reindirizza alla home
       return router.createUrlTree(['/']);
     })
   );

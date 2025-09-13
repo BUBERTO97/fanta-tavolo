@@ -6,8 +6,6 @@
 
         @if (user(); as loggedUser) {
             <nav class="main-nav">
-                <a routerLink="/game/predict" class="cursor-pointer">Mio Pronostico</a>
-
                 @if (isAdmin()) {
                     <a routerLink="/admin" class="cursor-pointer">Admin</a>
                 }

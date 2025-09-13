@@ -75,7 +75,6 @@
   }
 }
 
-// Stili per i Pulsanti
 .btn {
   display: inline-flex;
   align-items: center;
@@ -97,7 +96,6 @@
 .btn-toggle { background-color: var(--text-color-light); color: white; padding: 0.5rem 1rem; font-size: 0.9rem;}
 .btn-full-width { width: 100%; justify-content: center; }
 
-// Stili per l'upload e tabelle
 .upload-area {
   display: flex;
   flex-wrap: wrap;
@@ -108,7 +106,7 @@
 
 .table-container, .voters-list {
   margin-top: 1.5rem;
-  overflow-x: auto; // Per la responsività su schermi piccoli
+  overflow-x: auto;
 }
 
 table {
@@ -145,7 +143,6 @@ table {
   }
 }
 
-// Stili specifici per la gestione partita
 .status {
   padding: 0.3rem 0.8rem;
   border-radius: 12px;
@@ -185,17 +182,14 @@ table {
   border-radius: 4px;
 }
 
-// Animazione
 @keyframes slideDown {
   from { opacity: 0; transform: translateY(-15px); max-height: 0; }
-  to { opacity: 1; transform: translateY(0); max-height: 1000px; /* Valore grande per permettere l'espansione */ }
+  to { opacity: 1; transform: translateY(0); max-height: 1000px;}
 }
 .slide-down {
   animation: slideDown 0.5s ease-out forwards;
 }
 
-// --- Configuration ---
-// Add or remove abbreviations and properties as needed.
 $properties: (
   "margin": "margin",
   "m": "margin",
@@ -207,7 +201,6 @@ $properties: (
   "my": ("margin-top", "margin-bottom")  // Vertical axis
 );
 
-// Set the maximum size you want to generate (e.g., 5 will create classes up to .m-5)
 $max-size: 5;
 $unit: "rem";
 
