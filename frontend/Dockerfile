@@ -2,7 +2,7 @@
 
 # --- Fase 1: Build ---
 # Usiamo un'immagine Node.js per compilare il codice Angular
-FROM node:18-alpine AS builder
+FROM node:22-alpine AS builder
 
 WORKDIR /app
 
