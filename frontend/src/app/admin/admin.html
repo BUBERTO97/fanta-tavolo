@@ -1,0 +1,54 @@
+<div class="admin-container">
+  <h2>Pannello Amministratore</h2>
+
+  <section class="admin-section">
+    <h3>Gestione Invitati</h3>
+    <p>Carica il file Excel (in formato CSV) con la lista degli invitati.</p>
+
+    <div class="upload-area">
+      <input type="file" id="invitati-file" (change)="onFileChange($event)" accept=".csv" #fileInput hidden>
+      <button (click)="fileInput.click()" class="btn-upload">Seleziona File</button>
+      @if (fileName) {
+        <span class="file-name">Selezionato: {{ fileName }}</span>
+        <button (click)="confirmUpload()" class="btn-confirm-upload">Conferma e Salva in Firebase</button>
+      }
+    </div>
+
+    <div class="table-container">
+      <h4>Invitati Attuali</h4>
+      @if (invitatiRows.length > 0) {
+        <form [formGroup]="invitatiForm" (ngSubmit)="saveTableChanges()">
+          <table>
+            <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Cognome</th>
+              <th>Azienda</th>
+              <th>Accompagnatore</th>
+            </tr>
+            </thead>
+            <tbody formArrayName="rows">
+              @for (row of invitatiRows.controls; track row.value.id; let i = $index) {
+                <tr [formGroupName]="i">
+                  <td><input formControlName="nome"></td>
+                  <td><input formControlName="cognome"></td>
+                  <td><input formControlName="company"></td>
+                  <td><input formControlName="plus1"></td>
+                </tr>
+              }
+            </tbody>
+          </table>
+          <button type="submit" [disabled]="!invitatiForm.dirty" class="btn-save-table">
+            Salva Modifiche
+          </button>
+        </form>
+      } @else {
+        <p>Nessun invitato presente. Carica un file per iniziare.</p>
+      }
+    </div>
+  </section>
+
+  <section class="admin-section">
+    <h3>Gestione Partita</h3>
+  </section>
+</div>

@@ -1,0 +1,28 @@
+<div class="auth-container">
+  <h2>Crea il tuo Account</h2>
+  <p>Registrati per partecipare a Fanta Tavolo!</p>
+
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <div class="form-field">
+      <label for="email">Email</label>
+      <input id="email" type="email" formControlName="email" placeholder="nome@esempio.com" />
+    </div>
+
+    <div class="form-field">
+      <label for="password">Password</label>
+      <input id="password" type="password" formControlName="password" placeholder="Minimo 6 caratteri" />
+    </div>
+
+    @if (authError) {
+      <div class="error-message general-error">
+        {{ authError }}
+      </div>
+    }
+
+    <button type="submit" [disabled]="registerForm.invalid">Registrati</button>
+  </form>
+
+  <div class="switch-form">
+    Hai già un account? <a routerLink="/auth/login">Accedi qui!</a>
+  </div>
+</div>

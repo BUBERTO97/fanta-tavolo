@@ -1,0 +1,66 @@
+<div class="prediction-container" (click)="closeTooltip()">
+  <h2>Il Tuo Pronostico</h2>
+  <form [formGroup]="predictionForm" (ngSubmit)="onSubmit()">
+
+    <div formArrayName="tavoli">
+      @for (tavolo of tavoli.controls; track tavolo; let i = $index) {
+        <div class="table-card" [formGroupName]="i">
+          <h3 class="table-header">
+            <span>Tavolo {{ i + 1 }}</span>
+            <button class="remove-btn" type="button" (click)="rimuoviTavolo(i)">Rimuovi Tavolo</button>
+          </h3>
+
+          <div class="table-setup">
+            <label>Forma:</label>
+            <select formControlName="forma">
+              @for (forma of formeTavolo; track forma) {
+                <option [value]="forma">{{ forma }}</option>
+              }
+            </select>
+          </div>
+          <h4>Assegna i posti:</h4>
+          <div class="seats-grid" formArrayName="posti">
+            @for (posto of posti(i).controls; track posto; let j = $index) {
+              <div class="seat" [formGroupName]="j">
+                <label>Posto {{ j + 1 }}:</label>
+                <div class="seat-input-wrapper">
+                  <select formControlName="invitatoId">
+                    <option [ngValue]="null">-- Seleziona invitato --</option>
+                    @for (invitato of invitati(); track invitato.id) {
+                      <option [ngValue]="invitato.id">{{ invitato.nome }} {{ invitato.cognome }}</option>
+                    }
+                  </select>
+
+                  @if (posto.value.invitatoId; as selectedId) {
+                    <button type="button" (click)="toggleTooltip($event, i, j)" class="info-seat-btn">i</button>
+
+                    @if (isTooltipActive(i, j)) {
+                      <div class="tooltip">
+                        @if (getInvitatoById(selectedId); as invitato) {
+                          <strong>{{ invitato.nome }} {{ invitato.cognome }}</strong>
+                          <small>Azienda: {{ invitato.company || 'N/A' }}</small>
+                          <small>Accompagnatore: {{ invitato.plus1 || 'Nessuno' }}</small>
+                        }
+                      </div>
+                    }
+                  }
+                  <button type="button" (click)="rimuoviPosto(i, j)" class="remove-seat-btn">-</button>
+                </div>
+              </div>
+            }
+            <div class="seat-add">
+              <button type="button" (click)="aggiungiPosto(i)" class="add-seat-btn">Aggiungi Posto</button>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+
+    <div class="main-actions">
+      <button type="button" (click)="aggiungiTavolo()" class="add-table-btn">Aggiungi un Nuovo Tavolo</button>
+      <button type="submit" [disabled]="predictionForm.invalid" class="submit-btn">
+        Salva il mio Pronostico
+      </button>
+    </div>
+  </form>
+</div>

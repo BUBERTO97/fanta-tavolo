@@ -1,0 +1,25 @@
+<div class="home-container">
+  <h2>Bentornato a Fanta Tavolo!</h2>
+  <p>Da qui potrai accedere a tutte le funzionalità del gioco.</p>
+  <div class="actions">
+    <a routerLink="/game/predict" class="btn-predict">Crea o Modifica Pronostico</a>
+    <a routerLink="/results" class="btn-results">Visualizza Risultati</a>
+  </div>
+
+  <div class="voters-section">
+    <h3>Hanno già votato:</h3>
+    @if (voters$ | async; as voters) {
+      @if ((voters?.length ?? 0) > 0) {
+        <ul>
+          @for (voter of voters; track voter.userId) {
+            <li>{{ voter.userEmail }}</li>
+          }
+        </ul>
+      } @else {
+        <p>Nessuno ha ancora inviato il pronostico. Sii il primo!</p>
+      }
+    } @else {
+      <p>Caricamento...</p>
+    }
+  </div>
+</div>

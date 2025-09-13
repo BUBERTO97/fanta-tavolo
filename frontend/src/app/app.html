@@ -1,9 +1,26 @@
 <header class="main-header">
-  <h1>{{ title() }} 🎲</h1>
+    <div class="header-content">
+        <a routerLink="/" class="logo-link">
+            <h1>{{ title() }} 🎲</h1>
+        </a>
+
+        @if (user(); as loggedUser) {
+            <nav class="main-nav">
+                <a routerLink="/game/predict" class="cursor-pointer">Mio Pronostico</a>
+
+                @if (isAdmin()) {
+                    <a routerLink="/admin" class="cursor-pointer">Admin</a>
+                }
+            </nav>
+
+            <div class="user-actions">
+                <span class="user-email">{{ loggedUser.email }}</span>
+                <button (click)="logout()" class="logout-button">Esci</button>
+            </div>
+        }
+    </div>
 </header>
 
 <main class="content">
-  <router-outlet></router-outlet>
+    <router-outlet></router-outlet>
 </main>
-
-
