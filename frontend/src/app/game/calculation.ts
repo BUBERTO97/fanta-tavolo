@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Pronostico, ScoringRules } from './game.models';
+import {Pronostico, RisultatiUfficiali, ScoringRules} from './game.models';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CalculationService {
 
-  calculateScore(pronostico: Pronostico, risultatiUfficiali: any, rules: ScoringRules) {
+  calculateScore(pronostico: Pronostico, risultatiUfficiali: RisultatiUfficiali, rules: ScoringRules) {
     let score = 0;
 
     // 1. Calcolo Punti Base (Posti a sedere)

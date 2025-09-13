@@ -4,16 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f8d5e47b-9a52-404c-96e2-88fdd0d3bbc0" name="Changes" comment="aggiunto blocco utenti">
+    <list default="true" id="f8d5e47b-9a52-404c-96e2-88fdd0d3bbc0" name="Changes" comment="aggiunta sezione calcolo leader board">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/firestore.rules" beforeDir="false" afterPath="$PROJECT_DIR$/backend/firestore.rules" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/admin/admin.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/admin/admin.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/admin/admin.scss" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/admin/admin.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/admin/admin.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/admin/admin.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/angular.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/angular.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/game/calculation.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/game/calculation.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/app/game/game.models.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/game/game.models.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/app/game/game.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/game/game.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/game/prediction/prediction.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/game/prediction/prediction.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/game/prediction/prediction.scss" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/game/prediction/prediction.scss" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -106,7 +102,15 @@
       <option name="project" value="LOCAL" />
       <updated>1757766177152</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="aggiunta sezione calcolo leader board">
+      <option name="closed" value="true" />
+      <created>1757769014427</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1757769014427</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -129,6 +133,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Aggiunto sistema di voti, aggiunta pagina amministratore" />
     <MESSAGE value="aggiunto blocco utenti" />
-    <option name="LAST_COMMIT_MESSAGE" value="aggiunto blocco utenti" />
+    <MESSAGE value="aggiunta sezione calcolo leader board" />
+    <option name="LAST_COMMIT_MESSAGE" value="aggiunta sezione calcolo leader board" />
   </component>
 </project>

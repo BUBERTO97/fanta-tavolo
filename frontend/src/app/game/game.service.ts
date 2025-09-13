@@ -10,7 +10,7 @@ import {
   updateDoc, onSnapshot, where, getDocs, query
 } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import {GameSettings, Invitato, LeaderboardEntry, Pronostico, ScoringRules} from './game.models';
+import {GameSettings, Invitato, LeaderboardEntry, Pronostico, RisultatiUfficiali, ScoringRules} from './game.models';
 
 @Injectable({
   providedIn: 'root'
@@ -111,12 +111,12 @@ export class GameService {
     return querySnapshot.docs.map(d => d.data() as Pronostico);
   }
 
-  async getRisultatiUfficiali(): Promise<any | null> {
+  async getRisultatiUfficiali(): Promise<RisultatiUfficiali | null> {
     // Il documento dei risultati ha un ID fisso "ufficiali" per essere facilmente reperibile
     const risultatiDoc = doc(this.firestore, 'risultati/ufficiali');
     const snapshot = await getDoc(risultatiDoc);
 
     // Se il documento esiste, restituisce i suoi dati, altrimenti null
-    return snapshot.exists() ? snapshot.data() : null;
+    return snapshot.exists() ? snapshot.data() as RisultatiUfficiali : null;
   }
 }

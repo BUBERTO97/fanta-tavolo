@@ -40,3 +40,17 @@ export interface LeaderboardEntry {
   punteggio: number;
   dettagli?: any; // Per un futuro dettaglio dei punti
 }
+
+export interface PostoUfficiale {
+  invitatoId: string | null;
+}
+
+export interface TavoloUfficiale {
+  numeroPostiCorretto: number;
+  posti: PostoUfficiale[];
+}
+
+export interface RisultatiUfficiali {
+  numeroTavoliCorretto: number;
+  tavoli: TavoloUfficiale[];
+}
