@@ -1,10 +1,12 @@
-import { Component, OnInit, inject, signal, computed } from '@angular/core';
+import {Component, OnInit, inject, signal, computed, effect} from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { CommonModule } from '@angular/common';
 import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { GameService } from '../game/game.service';
 import * as Papa from 'papaparse';
-import { Invitato, Pronostico } from '../game/game.models';
+import {Invitato, LeaderboardEntry, Pronostico, ScoringRules} from '../game/game.models';
+import {CalculationService} from '../game/calculation';
+import {from} from 'rxjs';
 
 @Component({
   selector: 'app-admin',
@@ -16,6 +18,8 @@ import { Invitato, Pronostico } from '../game/game.models';
 export class AdminComponent implements OnInit {
   private readonly gameService = inject(GameService);
   private readonly fb = inject(FormBuilder);
+  private readonly calculationService = inject(CalculationService); // Inietta il servizio
+
 
   // --- Sezione Gestione Invitati ---
   showInvitatiTable = signal(false);
@@ -37,6 +41,9 @@ export class AdminComponent implements OnInit {
 
   gameSettings = toSignal(this.gameService.getGameSettings());
 
+  scoringRules = toSignal(from(this.gameService.getScoringRules()));
+  scoringRulesForm: FormGroup;
+
 
   constructor() {
     this.invitatiForm = this.fb.group({
@@ -46,6 +53,21 @@ export class AdminComponent implements OnInit {
     this.risultatiForm = this.fb.group({
       numeroTavoliCorretto: [1, [Validators.required, Validators.min(1)]],
       tavoli: this.fb.array([])
+    });
+
+    this.scoringRulesForm = this.fb.group({
+      puntiRispostaEsatta: [0, Validators.required],
+      puntiRispostaSbagliata: [0, Validators.required],
+      comboTuttiIPostiCorretti: [0, Validators.required],
+      comboNumeroTavoliCorretto: [0, Validators.required],
+      comboNumeroPersonePerTavoloCorretto: [0, Validators.required]
+    });
+
+    effect(() => {
+      const rules = this.scoringRules();
+      if (rules) {
+        this.scoringRulesForm.patchValue(rules);
+      }
     });
   }
 
@@ -170,8 +192,75 @@ export class AdminComponent implements OnInit {
       .catch(err => alert(`Errore nel salvataggio dei risultati: ${err.message}`));
   }
 
-  calcolaClassifica() {
-    alert('Logica di calcolo non ancora implementata!');
+  onRulesFileChange(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        try {
+          const rules = JSON.parse(e.target?.result as string);
+          this.gameService.saveScoringRules(rules)
+            .then(() => alert('Regole di punteggio salvate!'))
+            .catch(err => alert(`Errore: ${err.message}`));
+        } catch (error) {
+          alert('File JSON non valido.');
+        }
+      };
+      reader.readAsText(file);
+    }
+  }
+
+  downloadRulesTemplate() {
+    const template: ScoringRules = {
+      puntiRispostaEsatta: 1,
+      puntiRispostaSbagliata: 0.7,
+      comboTuttiIPostiCorretti: 100,
+      comboNumeroTavoliCorretto: 5,
+      comboNumeroPersonePerTavoloCorretto: 5
+    };
+    const blob = new Blob([JSON.stringify(template, null, 2)], { type: 'application/json' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'scoring-rules-template.json';
+    a.click();
+    window.URL.revokeObjectURL(url);
+  }
+
+  async calcolaClassifica() {
+    if (!confirm('Sei sicuro di voler calcolare la classifica finale? I risultati verranno sovrascritti.')) {
+      return;
+    }
+
+    const [pronosticiConfermati, risultatiUfficiali, scoringRules] = await Promise.all([
+      this.gameService.getConfirmedPronostici(),
+      this.gameService.getRisultatiUfficiali(),
+      this.gameService.getScoringRules()
+    ]);
+
+    if (!risultatiUfficiali) {
+      alert('Inserisci e salva i risultati ufficiali prima di calcolare la classifica.');
+      return;
+    }
+    if (!scoringRules) {
+      alert('Carica le regole di punteggio prima di calcolare la classifica.');
+      return;
+    }
+
+    const leaderboard: LeaderboardEntry[] = pronosticiConfermati.map(pronostico => {
+      const punteggio = this.calculationService.calculateScore(pronostico, risultatiUfficiali, scoringRules);
+      return {
+        userId: pronostico.userId,
+        userEmail: pronostico.userEmail,
+        punteggio: punteggio
+      };
+    });
+
+    leaderboard.sort((a, b) => b.punteggio - a.punteggio);
+
+    this.gameService.saveLeaderboard(leaderboard)
+      .then(() => alert('Classifica calcolata e salvata con successo!'))
+      .catch(err => alert(`Errore nel salvataggio della classifica: ${err.message}`));
   }
 
   togglePredictionsLock() {
@@ -179,6 +268,19 @@ export class AdminComponent implements OnInit {
     this.gameService.updateGameSettings({ predictionsLocked: !currentState })
       .then(() => {
         alert(`Previsioni ora ${!currentState ? 'BLOCCATE' : 'SBLOCCATE'}.`);
+      })
+      .catch(err => alert(`Errore: ${err.message}`));
+  }
+
+  saveScoringRules() {
+    if (this.scoringRulesForm.invalid) {
+      alert('Tutti i campi delle regole di punteggio sono obbligatori.');
+      return;
+    }
+    this.gameService.saveScoringRules(this.scoringRulesForm.value)
+      .then(() => {
+        alert('Regole di punteggio aggiornate con successo!');
+        this.scoringRulesForm.markAsPristine();
       })
       .catch(err => alert(`Errore: ${err.message}`));
   }

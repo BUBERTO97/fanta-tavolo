@@ -177,7 +177,60 @@
 
       <div class="final-actions">
         <h4>Finalizzazione</h4>
-        <p>Calcola i punteggi basati sui risultati ufficiali e genera la classifica. Questa azione è definitiva.</p>
+
+        <div class="rules-section">
+          <p>Gestisci le regole per il calcolo del punteggio. Puoi caricare un file JSON o modificare i valori direttamente.</p>
+
+          @if (scoringRules()) {
+            <form [formGroup]="scoringRulesForm" (ngSubmit)="saveScoringRules()" class="rules-form">
+              <table>
+                <thead>
+                <tr>
+                  <th>Regola</th>
+                  <th>Valore (Punti/Moltiplicatore)</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td>Punti per Risposta Esatta</td>
+                  <td><input type="number" formControlName="puntiRispostaEsatta"></td>
+                </tr>
+                <tr>
+                  <td>Punti persi per Risposta Sbagliata</td>
+                  <td><input type="number" formControlName="puntiRispostaSbagliata"></td>
+                </tr>
+                <tr>
+                  <td>Combo: Tutti i Posti Corretti (x)</td>
+                  <td><input type="number" formControlName="comboTuttiIPostiCorretti"></td>
+                </tr>
+                <tr>
+                  <td>Combo: Numero Tavoli Corretto (x)</td>
+                  <td><input type="number" formControlName="comboNumeroTavoliCorretto"></td>
+                </tr>
+                <tr>
+                  <td>Combo: Persone per Tavolo Corretto (x)</td>
+                  <td><input type="number" formControlName="comboNumeroPersonePerTavoloCorretto"></td>
+                </tr>
+                </tbody>
+              </table>
+              <button type="submit" [disabled]="!scoringRulesForm.dirty || scoringRulesForm.invalid" class="btn btn-primary btn-full-width">
+                Salva Modifiche Regole
+              </button>
+            </form>
+          }
+
+          <div class="actions">
+            <button (click)="downloadRulesTemplate()" class="btn btn-secondary">
+              <span class="icon">📥</span> Scarica Template
+            </button>
+            <input type="file" id="rules-file" (change)="onRulesFileChange($event)" accept=".json" #rulesFileInput hidden>
+            <button (click)="rulesFileInput.click()" class="btn">
+              <span class="icon">📄</span> Carica File Regole
+            </button>
+          </div>
+        </div>
+
+        <p>Calcola i punteggi basati sui risultati ufficiali e genera la classifica.</p>
         <button (click)="calcolaClassifica()" class="btn btn-danger btn-full-width">
           <span class="icon">🏆</span> Calcola Classifica Finale
         </button>

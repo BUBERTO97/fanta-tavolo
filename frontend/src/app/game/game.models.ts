@@ -25,3 +25,18 @@ export interface Pronostico {
 export interface GameSettings {
   predictionsLocked: boolean;
 }
+
+export interface ScoringRules {
+  puntiRispostaEsatta: number;
+  puntiRispostaSbagliata: number;
+  comboTuttiIPostiCorretti: number;
+  comboNumeroTavoliCorretto: number;
+  comboNumeroPersonePerTavoloCorretto: number;
+}
+
+export interface LeaderboardEntry {
+  userId: string;
+  userEmail: string;
+  punteggio: number;
+  dettagli?: any; // Per un futuro dettaglio dei punti
+}

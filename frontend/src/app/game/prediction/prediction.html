@@ -8,13 +8,14 @@
   <h2>{{ gameSettings()?.predictionsLocked ? 'La Tua Previsione (Bloccata)' : 'Crea il Tuo Pronostico' }}</h2>
 
   <form [formGroup]="predictionForm" (ngSubmit)="onSubmit()">
-
     <div formArrayName="tavoli">
-      @for (tavolo of tavoli.controls; track tavolo; let i = $index) {
+      @for (tavolo of tavoli.controls; track $index; let i = $index) {
         <div class="table-card" [formGroupName]="i">
           <h3 class="table-header">
             <span>Tavolo {{ i + 1 }}</span>
-            <button class="remove-btn" type="button" (click)="rimuoviTavolo(i)">Rimuovi Tavolo</button>
+            @if (!gameSettings()?.predictionsLocked) {
+              <button class="remove-btn" type="button" (click)="rimuoviTavolo(i)">Rimuovi Tavolo</button>
+            }
           </h3>
 
           <div class="table-setup">
@@ -25,9 +26,10 @@
               }
             </select>
           </div>
+
           <h4>Assegna i posti:</h4>
           <div class="seats-grid" formArrayName="posti">
-            @for (posto of posti(i).controls; track posto; let j = $index) {
+            @for (posto of posti(i).controls; track $index; let j = $index) {
               <div class="seat" [formGroupName]="j">
                 <label>Posto {{ j + 1 }}:</label>
                 <div class="seat-input-wrapper">
@@ -39,8 +41,7 @@
                   </select>
 
                   @if (posto.value.invitatoId; as selectedId) {
-                    <button type="button" (click)="toggleTooltip($event, i, j)" class="info-seat-btn">i</button>
-
+                    <span class="info-icon" (click)="toggleTooltip($event, i, j)">ℹ️</span>
                     @if (isTooltipActive(i, j)) {
                       <div class="tooltip">
                         @if (getInvitatoById(selectedId); as invitato) {
@@ -51,23 +52,28 @@
                       </div>
                     }
                   }
-                  <button type="button" (click)="rimuoviPosto(i, j)" class="remove-seat-btn">-</button>
+
+                  @if (!gameSettings()?.predictionsLocked) {
+                    <button type="button" (click)="rimuoviPosto(i, j)" class="remove-seat-btn">-</button>
+                  }
                 </div>
               </div>
             }
-            <div class="seat-add">
+            @if (!gameSettings()?.predictionsLocked) {
               <button type="button" (click)="aggiungiPosto(i)" class="add-seat-btn">Aggiungi Posto</button>
-            </div>
+            }
           </div>
         </div>
       }
     </div>
 
     <div class="main-actions">
-      <button type="button" (click)="aggiungiTavolo()" class="add-table-btn">Aggiungi un Nuovo Tavolo</button>
-      <button type="submit" [disabled]="predictionForm.invalid" class="submit-btn">
-        Salva il mio Pronostico
-      </button>
+      @if (!gameSettings()?.predictionsLocked) {
+        <button type="button" (click)="aggiungiTavolo()" class="add-table-btn">Aggiungi un Nuovo Tavolo</button>
+        <button type="submit" [disabled]="predictionForm.invalid" class="submit-btn">
+          Salva il mio Pronostico
+        </button>
+      }
     </div>
   </form>
 </div>

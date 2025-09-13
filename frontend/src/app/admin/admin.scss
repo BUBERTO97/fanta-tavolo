@@ -251,3 +251,59 @@ $unit: "rem";
     margin-top: 1rem;
   }
 }
+
+.final-actions {
+  .rules-section {
+    background-color: var(--light-gray);
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    margin-bottom: 1.5rem;
+
+    .actions {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+  }
+}
+
+.btn-secondary {
+  background-color: #95a5a6;
+  color: white;
+}
+
+.final-actions {
+  margin-top: 2.5rem;
+  border-top: 1px solid var(--border-color);
+  padding-top: 1.5rem;
+}
+
+.rules-section {
+  background-color: var(--light-gray);
+  padding: 1.5rem;
+  border-radius: var(--border-radius);
+  margin-bottom: 1.5rem;
+  border: 1px solid var(--border-color);
+
+  .actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px dashed var(--border-color);
+  }
+}
+
+.rules-form {
+  table {
+    margin-bottom: 1rem;
+    td:first-child {
+      font-weight: 500;
+    }
+  }
+}
+
+.btn-secondary {
+  background-color: #7f8c8d;
+  color: white;
+}
