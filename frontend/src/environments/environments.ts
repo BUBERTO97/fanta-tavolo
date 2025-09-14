@@ -1,12 +1,11 @@
 export const environment = {
   production: false,
   firebase: {
-    apiKey: "AIzaSyBgNLJKNFyERGfNszzH0y5u0s_yMSIeMJk",
-    authDomain: "fanta-tavolo-app.firebaseapp.com",
-    projectId: "fanta-tavolo-app",
-    storageBucket: "fanta-tavolo-app.firebasestorage.app",
-    messagingSenderId: "313897924265",
-    appId: "1:313897924265:web:e05f046370c3a0f46f5bb8",
-    measurementId: "G-RDDCT240BM"
+    apiKey: process.env['FIREBASE_API_KEY'],
+    authDomain: process.env['FIREBASE_AUTH_DOMAIN'],
+    projectId: process.env['FIREBASE_PROJECT_ID'],
+    storageBucket: process.env['FIREBASE_STORAGE_BUCKET'],
+    messagingSenderId: process.env['FIREBASE_MESSAGING_SENDER_ID'],
+    appId: process.env['FIREBASE_APP_ID'],
   }
 };

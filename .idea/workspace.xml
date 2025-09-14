@@ -4,25 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f8d5e47b-9a52-404c-96e2-88fdd0d3bbc0" name="Changes" comment="fix fix icons">
+    <list default="true" id="f8d5e47b-9a52-404c-96e2-88fdd0d3bbc0" name="Changes" comment="remove comments">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/firestore.rules" beforeDir="false" afterPath="$PROJECT_DIR$/backend/firestore.rules" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/admin/admin.scss" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/admin/admin.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/admin/admin.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/admin/admin.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/app.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/app.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/app.routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/app.routes.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/app.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/app.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/auth/auth.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/auth/auth.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/auth/login/login.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/auth/login/login.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/auth/register/register.spec.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/auth/register/register.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/auth/register/register.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/core/admin-guard.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/core/admin-guard.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/game/calculation.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/game/calculation.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/game/game.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/game/game.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/game/prediction/prediction.scss" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/game/prediction/prediction.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/home/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/home/home.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/home/home.scss" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/home/home.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/Dockerfile" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -164,7 +148,15 @@
       <option name="project" value="LOCAL" />
       <updated>1757773668939</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="remove comments">
+      <option name="closed" value="true" />
+      <created>1757774683777</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1757774683777</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -191,6 +183,7 @@
     <MESSAGE value="sistemazione deploy errors" />
     <MESSAGE value="fix dockercompose" />
     <MESSAGE value="fix fix icons" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix fix icons" />
+    <MESSAGE value="remove comments" />
+    <option name="LAST_COMMIT_MESSAGE" value="remove comments" />
   </component>
 </project>
