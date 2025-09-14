@@ -32,7 +32,7 @@ RUN sed -i "s/process.env\['FIREBASE_API_KEY'\]/'$FIREBASE_API_KEY'/g" src/envir
     sed -i "s/process.env\['FIREBASE_STORAGE_BUCKET'\]/'$FIREBASE_STORAGE_BUCKET'/g" src/environments/environments.ts && \
     sed -i "s/process.env\['FIREBASE_MESSAGING_SENDER_ID'\]/'$FIREBASE_MESSAGING_SENDER_ID'/g" src/environments/environments.ts && \
     sed -i "s/process.env\['FIREBASE_APP_ID'\]/'$FIREBASE_APP_ID'/g" src/environments/environments.ts && \
-    sed -i "s/process.env\['FIREBASE_MEASUREMENT_ID'\]'$FIREBASE_MEASUREMENT_ID'/g" src/environments/environments.ts
+    sed -i "s/process.env\['FIREBASE_MEASUREMENT_ID'\]/'$FIREBASE_MEASUREMENT_ID'/g" src/environments/environments.ts
 
 
 
