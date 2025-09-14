@@ -1,10 +1,10 @@
-import {Component, OnInit, inject, effect} from '@angular/core';
+import {Component, OnInit, inject, effect, computed} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../auth/auth.service';
 import { GameService } from '../game.service';
 import {Invitato, Pronostico} from '../game.models';
-import { switchMap, take } from 'rxjs';
+import {startWith, switchMap, take} from 'rxjs';
 import {toSignal} from '@angular/core/rxjs-interop';
 
 @Component({
@@ -29,11 +29,33 @@ export class PredictionComponent implements OnInit {
   gameSettings = toSignal(this.gameService.getGameSettings());
 
 
+  private tavoliValue = toSignal(
+    this.fb.array([]).valueChanges.pipe(startWith([]))
+  );
+
+  selectedInvitatiIds = computed(() => {
+    const selectedIds = new Set<string>();
+    const tavoli = this.tavoliValue() || [];
+    tavoli.forEach((tavolo: any) => {
+      tavolo.posti?.forEach((posto: any) => {
+        if (posto?.invitatoId) {
+          selectedIds.add(posto.invitatoId);
+        }
+      });
+    });
+    return selectedIds;
+  });
 
   constructor() {
     this.predictionForm = this.fb.group({
       tavoli: this.fb.array([])
     });
+
+    this.tavoliValue = toSignal(
+      this.predictionForm.get('tavoli')!.valueChanges.pipe(
+        startWith(this.predictionForm.get('tavoli')!.value)
+      )
+    );
 
     effect(() => {
       const locked = this.gameSettings()?.predictionsLocked;
@@ -47,6 +69,16 @@ export class PredictionComponent implements OnInit {
 
   ngOnInit() {
     this.loadOrCreatePronostico();
+  }
+
+  getAvailableInvitatiForSeat(tableIndex: number, seatIndex: number): Invitato[] {
+    const allInvitati = this.invitati();
+    const selectedIds = this.selectedInvitatiIds();
+    const currentSeatValue = this.posti(tableIndex).at(seatIndex)?.value?.invitatoId;
+
+    return allInvitati.filter(invitato => {
+      return !selectedIds.has(invitato.id) || invitato.id === currentSeatValue;
+    });
   }
 
   getInvitatoById(id: string): Invitato | undefined {

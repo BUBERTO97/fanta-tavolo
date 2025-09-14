@@ -3,6 +3,8 @@ import { authGuard } from './core/auth-guard';
 import { publicGuard } from './core/public-guard';
 import { HomeComponent } from './home/home';
 import {adminGuard} from "./core/admin-guard";
+import {resultsGuard} from "./core/results-guard";
+import {ResultsComponent} from "./results/results";
 
 export const routes: Routes = [
     {
@@ -19,6 +21,11 @@ export const routes: Routes = [
         path: 'admin',
         canActivate: [adminGuard],
         loadChildren: () => import('./admin/admin.routes').then(m => m.ADMIN_ROUTES)
+    },
+    {
+        path: 'results',
+        component: ResultsComponent,
+        canActivate: [authGuard, resultsGuard]
     },
     {
         path: '',

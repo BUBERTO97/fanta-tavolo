@@ -1,24 +1,36 @@
-<header class="main-header">
-    <div class="header-content">
-        <a routerLink="/" class="logo-link">
-            <h1>{{ title() }} 🎲</h1>
-        </a>
+<div class="app-container">
+    <header class="main-header">
+        <div class="header-content">
+            <a routerLink="/" class="logo-link">
+                <h1>{{ title() }}</h1>
+            </a>
 
-        @if (user(); as loggedUser) {
-            <nav class="main-nav">
-                @if (isAdmin()) {
-                    <a routerLink="/admin" class="cursor-pointer">Admin</a>
-                }
-            </nav>
+            @if (user(); as loggedUser) {
+                <nav class="main-nav">
+                    <a routerLink="/game/predict">Il Mio Pronostico</a>
+                    @if (isAdmin()) {
+                        <a routerLink="/admin">Admin</a>
+                    }
+                </nav>
 
-            <div class="user-actions">
-                <span class="user-email">{{ loggedUser.email }}</span>
-                <button (click)="logout()" class="logout-button">Esci</button>
-            </div>
-        }
-    </div>
-</header>
+                <div class="user-actions">
+                    <span class="user-email">{{ loggedUser.email }}</span>
+                    <button (click)="logout()" class="logout-button">Esci</button>
+                </div>
+            }
+        </div>
+    </header>
 
-<main class="content">
-    <router-outlet></router-outlet>
-</main>
+    <main class="content">
+        <router-outlet></router-outlet>
+    </main>
+
+    <footer class="main-footer-90s">
+        <div class="footer-content-90s">
+            <span class="prompt">> FantaEvento_OS:> </span>
+            <marquee behavior="scroll" direction="left" scrolldelay="100">
+                {{ currentJoke() }}
+            </marquee>
+        </div>
+    </footer>
+</div>

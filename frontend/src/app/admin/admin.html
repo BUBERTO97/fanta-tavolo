@@ -120,7 +120,7 @@
                   <td>{{ voter.userEmail }}</td>
                   <td>
                     <span class="status" [class.confirmed]="voter.confermato">
-                      {{ voter.confermato ? 'Confermato' : 'Da confermare' }}
+                      {{ voter.confermato ? '✓' : '⌛︎' }}
                     </span>
                   </td>
                   <td>

@@ -1,0 +1,33 @@
+<div class="results-container">
+  <header class="results-header">
+    <h2>🏆 Risultati Finali 🏆</h2>
+    <p>Scopri il tuo punteggio e la classifica generale del Fanta Tavolo!</p>
+  </header>
+
+  @if (personalResult(); as myResult) {
+    <section class="result-section personal-score">
+      <h3>Il Tuo Punteggio</h3>
+      <div class="score-display">
+        {{ myResult.punteggio.toFixed(2) }}
+        <span>punti</span>
+      </div>
+    </section>
+  }
+
+  <section class="result-section leaderboard">
+    <h3>Classifica Finale</h3>
+    @if (leaderboard().length > 0) {
+      <ol class="leaderboard-list">
+        @for (entry of leaderboard(); track entry.userId; let i = $index) {
+          <li class="leaderboard-item" [class.current-user]="entry.userId === currentUser()?.uid">
+            <span class="position">{{ i + 1 }}</span>
+            <span class="name">{{ entry.userEmail }}</span>
+            <span class="score">{{ entry.punteggio.toFixed(2) }} pts</span>
+          </li>
+        }
+      </ol>
+    } @else {
+      <p>La classifica è in fase di caricamento...</p>
+    }
+  </section>
+</div>

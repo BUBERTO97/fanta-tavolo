@@ -7,7 +7,7 @@ import {
   getDoc,
   collectionData,
   writeBatch,
-  updateDoc, onSnapshot, where, getDocs, query
+  updateDoc, onSnapshot, where, getDocs, query, orderBy, limit, getDocsFromServer
 } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import {GameSettings, Invitato, LeaderboardEntry, Pronostico, RisultatiUfficiali, ScoringRules} from './game.models';
@@ -110,5 +110,18 @@ export class GameService {
     const snapshot = await getDoc(risultatiDoc);
 
     return snapshot.exists() ? snapshot.data() as RisultatiUfficiali : null;
+  }
+
+  getLeaderboard(): Observable<LeaderboardEntry[]> {
+    const leaderboardCol = collection(this.firestore, 'leaderboard');
+    const q = query(leaderboardCol, orderBy('punteggio', 'desc'));
+    return collectionData(q, { idField: 'userId' }) as Observable<LeaderboardEntry[]>;
+  }
+
+  async doesLeaderboardExist(): Promise<boolean> {
+    const leaderboardCol = collection(this.firestore, 'leaderboard');
+    const q = query(leaderboardCol, limit(1));
+    const snapshot = await getDocsFromServer(q);
+    return !snapshot.empty;
   }
 }

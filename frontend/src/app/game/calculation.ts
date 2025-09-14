@@ -28,8 +28,6 @@ export class CalculationService {
       });
     });
 
-    // 2. Calcolo COMBO
-    // Combo: Numero tavoli corretto
     if (pronostico.tavoli.length === risultatiUfficiali.tavoli.length) {
       score *= rules.comboNumeroTavoliCorretto;
     }

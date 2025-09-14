@@ -35,13 +35,13 @@
                 <div class="seat-input-wrapper">
                   <select formControlName="invitatoId">
                     <option [ngValue]="null">-- Seleziona invitato --</option>
-                    @for (invitato of invitati(); track invitato.id) {
+                    @for (invitato of getAvailableInvitatiForSeat(i, j); track invitato.id) {
                       <option [ngValue]="invitato.id">{{ invitato.nome }} {{ invitato.cognome }}</option>
                     }
                   </select>
 
                   @if (posto.value.invitatoId; as selectedId) {
-                    <span class="info-icon" (click)="toggleTooltip($event, i, j)">ℹ️</span>
+                    <button type="button" (click)="toggleTooltip($event, i, j)" class="info-seat-btn">i</button>
                     @if (isTooltipActive(i, j)) {
                       <div class="tooltip">
                         @if (getInvitatoById(selectedId); as invitato) {

@@ -1,0 +1,100 @@
+:host {
+  --primary-color: #3498db;
+  --secondary-color: #2c3e50;
+  --gold-color: #f1c40f;
+  --silver-color: #bdc3c7;
+  --bronze-color: #cd7f32;
+}
+
+.results-container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 1rem;
+}
+
+.results-header {
+  text-align: center;
+  margin-bottom: 3rem;
+  h2 {
+    font-size: 2.8rem;
+    color: var(--secondary-color);
+  }
+  p {
+    font-size: 1.1rem;
+    color: #6c757d;
+  }
+}
+
+.result-section {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  margin-bottom: 2rem;
+
+  h3 {
+    font-size: 1.8rem;
+    color: var(--secondary-color);
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+}
+
+.personal-score {
+  text-align: center;
+  .score-display {
+    font-size: 4rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    span {
+      font-size: 1.5rem;
+      font-weight: normal;
+      color: #6c757d;
+    }
+  }
+}
+
+.leaderboard-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.leaderboard-item {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  border-radius: 6px;
+  margin-bottom: 0.5rem;
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  font-size: 1.1rem;
+
+  &.current-user {
+    background-color: #e8f4fd;
+    border-left: 5px solid var(--primary-color);
+    font-weight: bold;
+  }
+
+  .position {
+    font-weight: bold;
+    color: var(--secondary-color);
+    margin-right: 1.5rem;
+    min-width: 30px;
+    text-align: center;
+  }
+
+  .name {
+    flex-grow: 1;
+  }
+
+  .score {
+    font-weight: bold;
+    color: var(--primary-color);
+  }
+
+  // Medaglie per i primi 3
+  &:nth-child(1) .position { color: var(--gold-color); }
+  &:nth-child(2) .position { color: var(--silver-color); }
+  &:nth-child(3) .position { color: var(--bronze-color); }
+}
