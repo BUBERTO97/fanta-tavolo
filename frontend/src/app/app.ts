@@ -11,19 +11,17 @@ import { AuthService } from './auth/auth.service';
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
-export class App implements OnInit, OnDestroy {
+export class App {
   protected readonly title = signal('Fanta E-💨');
   private readonly authService = inject(AuthService);
-  private jokeInterval: any;
 
-  // Lista di barzellette da mostrare
   private readonly jokes = [
-    "Qual è il social network preferito dai ragni? Il Web.",
-    "Un programmatore muore e va all'inferno. Dopo una settimana, Lucifero chiama Dio: 'Cosa mi hai mandato? Ha automatizzato le caldaie, riscritto il sistema in Python e ora c'è l'aria condizionata!'",
+    'Hello World! 👋 In questa applicazione sono nascosti diversi Easter Eggs... Un piccolo indizio? Controlla anche i display: "none" ;)',
     "Ci sono 10 tipi di persone al mondo: quelle che capiscono il binario e quelle che non lo capiscono.",
-    "Perché i programmatori confondono sempre Halloween con Natale? Perché Oct 31 == Dec 25.",
-    "Un programmatore mette due bicchieri sul comodino prima di dormire: uno pieno d'acqua nel caso avesse sete, e uno vuoto nel caso non l'avesse.",
-    "Cosa dice un programmatore quando esce dalla doccia? 'Hello, World!'",
+    "Sorpresa! 🤯Jiale lavora al Tesake Sushi.🤯",
+    "In verità Diego (aka Siego) è Silvia con i baffi 🧔🏼‍♀️.",
+    "Amo premere f5, è così rinfrescante!",
+    'Qual’è la più grande bugia dell’universo? ”Ho letto e accetto i termini e le condizioni” (tranne per l\'Alby nazionale)'
   ];
 
   currentJoke = signal(this.jokes[0]);
@@ -31,22 +29,12 @@ export class App implements OnInit, OnDestroy {
   user = toSignal(this.authService.user$);
   isAdmin = toSignal(this.authService.isAdmin());
 
-  ngOnInit() {
-    // Cambia la barzelletta ogni 10 secondi
-    this.jokeInterval = setInterval(() => {
-      const randomIndex = Math.floor(Math.random() * this.jokes.length);
-      this.currentJoke.set(this.jokes[randomIndex]);
-    }, 30000);
-  }
-
-  ngOnDestroy() {
-    // Pulisce l'intervallo per evitare memory leak quando il componente viene distrutto
-    if (this.jokeInterval) {
-      clearInterval(this.jokeInterval);
-    }
-  }
-
   logout() {
     this.authService.logout();
+  }
+
+  jokeClick(){
+    const randomIndex = Math.floor(Math.random() * this.jokes.length);
+    this.currentJoke.set(this.jokes[randomIndex]);
   }
 }
