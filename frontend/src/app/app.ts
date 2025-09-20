@@ -12,7 +12,7 @@ import { AuthService } from './auth/auth.service';
   styleUrl: './app.scss',
 })
 export class App {
-  protected readonly title = signal('Fanta E-💨');
+  protected readonly title = signal('Fanta E-💨(vento)');
   private readonly authService = inject(AuthService);
 
   private readonly jokes = [
