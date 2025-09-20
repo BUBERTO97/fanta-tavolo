@@ -4,7 +4,6 @@ import { RouterLink } from '@angular/router';
 import { GameService } from '../game/game.service';
 import { Observable } from 'rxjs';
 import { Pronostico } from '../game/game.models';
-import confetti from 'canvas-confetti';
 
 
 @Component({
@@ -16,8 +15,6 @@ import confetti from 'canvas-confetti';
 })
 export class HomeComponent implements OnInit {
   private readonly gameService = inject(GameService);
-
-  @ViewChild('confettiCanvas') confettiCanvas!: ElementRef<HTMLCanvasElement>;
 
 
   voters$!: Observable<Pronostico[]>;
