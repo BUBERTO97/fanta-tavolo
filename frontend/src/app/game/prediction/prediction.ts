@@ -28,7 +28,6 @@ export class PredictionComponent implements OnInit {
 
   gameSettings = toSignal(this.gameService.getGameSettings());
 
-
   private tavoliValue = toSignal(
     this.fb.array([]).valueChanges.pipe(startWith([]))
   );
@@ -184,4 +183,6 @@ export class PredictionComponent implements OnInit {
       }
     });
   }
+
+
 }
