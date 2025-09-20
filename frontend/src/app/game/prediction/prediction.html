@@ -6,7 +6,9 @@
   }
 
   <h2>{{ gameSettings()?.predictionsLocked ? 'La Tua Previsione (Bloccata)' : 'Crea il Tuo Pronostico' }}</h2>
-
+  @let invitatiTotali = this.invitati().length;
+  @let invitatiSelezionati = this.selectedInvitatiIds();
+  <h4 style="margin: 0.5rem 0;"> Hai posizionato {{ invitatiSelezionati.size }} / {{invitatiTotali}}</h4>
   <form [formGroup]="predictionForm" (ngSubmit)="onSubmit()">
     <div formArrayName="tavoli">
       @for (tavolo of tavoli.controls; track $index; let i = $index) {
