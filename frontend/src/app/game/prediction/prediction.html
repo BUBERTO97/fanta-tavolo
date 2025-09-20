@@ -36,7 +36,7 @@
                   <select formControlName="invitatoId">
                     <option [ngValue]="null">-- Seleziona invitato --</option>
                     @for (invitato of getAvailableInvitatiForSeat(i, j); track invitato.id) {
-                      <option [ngValue]="invitato.id">{{ invitato.nome }} {{ invitato.cognome }}</option>
+                      <option [ngValue]="invitato.id">{{ invitato.nome | titlecase }} {{ invitato.cognome | titlecase}}</option>
                     }
                   </select>
 

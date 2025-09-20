@@ -60,9 +60,9 @@ export class PredictionComponent implements OnInit {
     effect(() => {
       const locked = this.gameSettings()?.predictionsLocked;
       if (locked === true) {
-        this.predictionForm.disable(); // Disabilita l'intero form
+        this.predictionForm.disable();
       } else if (locked === false) {
-        this.predictionForm.enable(); // Riabilita l'intero form
+        this.predictionForm.enable();
       }
     });
   }
@@ -76,9 +76,15 @@ export class PredictionComponent implements OnInit {
     const selectedIds = this.selectedInvitatiIds();
     const currentSeatValue = this.posti(tableIndex).at(seatIndex)?.value?.invitatoId;
 
-    return allInvitati.filter(invitato => {
-      return !selectedIds.has(invitato.id) || invitato.id === currentSeatValue;
-    });
+    return allInvitati
+      .filter(invitato => !selectedIds.has(invitato.id) || invitato.id === currentSeatValue)
+      .sort((a, b) => {
+        const cognomeCompare = a.cognome.localeCompare(b.cognome, undefined, { sensitivity: 'base' });
+        if (cognomeCompare !== 0) {
+          return cognomeCompare;
+        }
+        return a.nome.localeCompare(b.nome, undefined, { sensitivity: 'base' });
+      });
   }
 
   getInvitatoById(id: string): Invitato | undefined {
