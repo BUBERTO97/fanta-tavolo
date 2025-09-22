@@ -136,16 +136,15 @@ $footer-text-90s-scss: #39ff14;
   -webkit-overflow-scrolling: touch; /* Migliora lo scrolling su iOS */
 }
 
-/* Footer Fisso Stile Anni '90 */
 .main-footer-90s {
-  flex-shrink: 0; // Impedisce al footer di rimpicciolirsi
+  flex-shrink: 0;
   background-color: var(--footer-bg-90s);
   color: var(--footer-text-90s);
   font-family: 'Courier New', Courier, monospace;
   padding: 8px 15px;
-  border-top: 3px outset #555; /* Effetto 3D tipico anni '90 */
+  border-top: 3px outset #555;
   box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.3);
-  z-index: 10; // Assicura che sia sopra il contenuto
+  z-index: 10;
   font-size: 1rem;
 }
 
@@ -159,20 +158,25 @@ $footer-text-90s-scss: #39ff14;
 
   .prompt {
     font-weight: bold;
-    white-space: nowrap; // Non mandare a capo il prompt
-    text-shadow: 0 0 5px var(--footer-text-90s); // Effetto glow
+    white-space: nowrap;
+    text-shadow: 0 0 5px var(--footer-text-90s);
   }
 
-  marquee {
-    flex-grow: 1; // Occupa lo spazio rimanente
+  /* Contenitore che definisce l'area visibile dello scroll */
+  .scrolling-text-container {
+    flex-grow: 1; /* Occupa lo spazio come faceva marquee */
+    overflow: hidden; /* Nasconde il testo quando è fuori dai bordi */
+  }
+
+  /* Il testo che scorre effettivamente */
+  .scrolling-text {
+    display: inline-block; /* Necessario per applicare transform */
     font-weight: bold;
-    //font-size: 0.9rem;
-    //background-color: #1a1a1a;
-    //border: 1px solid #39ff14;
     padding: 3px 5px;
-    border-radius: 2px;
-    white-space: nowrap;
-    overflow: hidden;
+    white-space: nowrap; /* Impedisce al testo di andare a capo */
+
+    /* Applica l'animazione definita sopra */
+    animation: scroll-left 20s linear infinite; /* 20s per una velocità di lettura comoda */
   }
 }
 
