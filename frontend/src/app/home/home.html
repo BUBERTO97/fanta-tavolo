@@ -3,6 +3,7 @@
 
   <h2>Bentornato al Fanta Evento!</h2>
   <p>Da qui potrai accedere a tutte le funzionalità del gioco.</p>
+  <p (click)="jokeClick()" class="anim-typewriter">{{displayedJoke()}}</p>
   <div class="actions">
     <a routerLink="/game/predict" class="btn-predict">Crea o Modifica Pronostico</a>
     <a routerLink="/results" class="btn-results">Visualizza Risultati</a>
