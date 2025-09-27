@@ -2,16 +2,39 @@
   <img src="fanta_evento_4.png" alt="Fanta Evento Logo" class="event-logo">
 
   <h2>Bentornato al Fanta Evento!</h2>
-  <p>Da qui potrai accedere a tutte le funzionalità del gioco.</p>
-  <p (click)="jokeClick()" class="anim-typewriter">{{displayedJoke()}}</p>
   <div class="actions">
     <a routerLink="/game/predict" class="btn-predict">Crea o Modifica Pronostico</a>
     <a routerLink="/results" class="btn-results">Visualizza Risultati</a>
   </div>
 
+
   <button id="easterEggButton" class="btn-easter-egg" style="display: none;" (click)="triggerEasterEgg()">
     🥷🏼Accesso Admin Segreto 🥷🏼
   </button>
+  <div class="patch-note">
+    <div class="patch-note-header">
+      <h3>PATCH NOTE v1.0.1: LA RIVOLUZIONE CHE NON VI ASPETTAVATE 👨‍💻</h3>
+    </div>
+    <div class="patch-note-body">
+      <p>Dopo innumerevoli segnalazioni, imprecazioni e mouse lanciati contro il muro, vi abbiamo ascoltato.
+        Ci siamo resi conto che inserire i pronostici da computer era comodo quanto montare un mobile IKEA al buio.</p>
+      <p><strong>MA ORA BASTA!</strong> Abbiamo introdotto l'incredibile <strong>"Modalità Desktop"!</strong></p>
+
+      <h4>Cosa significa?</h4>
+      <ul>
+        <li>Significa dire <strong>ADDIO</strong> al maledetto rituale: <em>"Aggiungi Posto -> Cerca nome in un menu a tendina infinito -> Sbaglia -> Ricomincia"</em>.</li>
+        <li>Ora, da computer, vedrete una meravigliosa tabella con tutti i nomi e delle comode caselline da spuntare. ✅</li>
+      </ul>
+
+      <blockquote>
+        Un piccolo check-mark per voi, un grande passo per la sanità mentale di tutti.
+      </blockquote>
+
+      <p class="signature">Non avete più scuse.</p>
+    </div>
+  </div>
+  <p (click)="jokeClick()" class="anim-typewriter">{{displayedJoke()}}</p>
+
 
   @if (showEasterEggMessage) {
     <div class="confetti-container">

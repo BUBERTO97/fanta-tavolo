@@ -18,10 +18,8 @@ export class HomeComponent implements OnInit {
 
   private readonly jokes = [
     'Hello World! 👋 Riesci a trovare gli Easter Eggs?',
-    "Sì, esatto, puoi cliccarmi ancora ed io cambierò per te...",
     "Sorpresa! 🤯Jiale lavora al Tesake Sushi.🤯",
     "In verità Diego (aka Siego) è Silvia con i baffi 🧔🏼‍♀️.",
-    "Amo premere f5, è così rinfrescante!",
   ];
 
   currentJoke = signal(this.jokes[0]);
