@@ -24,6 +24,15 @@ export class PredictionComponent implements OnInit {
   // Form principale
   predictionForm: FormGroup;
   invitati = toSignal(this.gameService.getInvitati(), { initialValue: [] });
+  orderInvitati = computed(() => {
+    return this.invitati().sort((a, b) => {
+      const cognomeCompare = a.cognome.localeCompare(b.cognome, undefined, { sensitivity: 'base' });
+      if (cognomeCompare !== 0) {
+        return cognomeCompare;
+      }
+      return a.nome.localeCompare(b.nome, undefined, { sensitivity: 'base' });
+    })
+  });
   formeTavolo = ['tondo', 'rettangolare', 'ferro di cavallo'];
 
   activeTooltip: { tableIndex: number; seatIndex: number } | null = null;
@@ -87,6 +96,8 @@ export class PredictionComponent implements OnInit {
         return a.nome.localeCompare(b.nome, undefined, { sensitivity: 'base' });
       });
   }
+
+
 
   getInvitatoById(id: string): Invitato | undefined {
     return this.invitati().find(inv => inv.id === id);

@@ -52,7 +52,7 @@
                   </tr>
                   </thead>
                   <tbody>
-                    @for (invitato of invitati(); track invitato.id) {
+                    @for (invitato of orderInvitati(); track invitato.id) {
                       <tr [class.disabled-row]="selectedInvitatiIds().has(invitato.id) && !isInvitatoSelectedForTable(invitato.id, i)">
                         <td>
                           <input
