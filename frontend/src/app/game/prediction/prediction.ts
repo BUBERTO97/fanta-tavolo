@@ -1,4 +1,4 @@
-import {Component, OnInit, inject, effect, computed} from '@angular/core';
+import {Component, OnInit, inject, effect, computed, signal} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../auth/auth.service';
@@ -18,6 +18,8 @@ export class PredictionComponent implements OnInit {
   private readonly fb = inject(FormBuilder);
   private readonly authService = inject(AuthService);
   private readonly gameService = inject(GameService);
+
+  isDesktopMode = signal(false);
 
   // Form principale
   predictionForm: FormGroup;
@@ -182,6 +184,43 @@ export class PredictionComponent implements OnInit {
           .catch(err => console.error('Errore nel salvataggio:', err));
       }
     });
+  }
+
+  /**
+   * Controlla se un invitato specifico è già stato assegnato a un determinato tavolo.
+   * @param invitatoId L'ID dell'invitato da controllare.
+   * @param tableIndex L'indice del tavolo da controllare.
+   * @returns `true` se l'invitato è nel tavolo, altrimenti `false`.
+   */
+  isInvitatoSelectedForTable(invitatoId: string, tableIndex: number): boolean {
+    const postiArray = this.posti(tableIndex);
+    return postiArray.controls.some(control => control.value.invitatoId === invitatoId);
+  }
+
+  /**
+   * Gestisce l'evento di cambio stato di una checkbox nella tabella desktop.
+   * Aggiunge o rimuove un invitato dal FormArray dei posti di un tavolo.
+   * @param event L'evento DOM del cambio.
+   * @param invitato L'oggetto Invitato associato alla riga.
+   * @param tableIndex L'indice del tavolo che si sta modificando.
+   */
+  onGuestSelectionChange(event: Event, invitato: Invitato, tableIndex: number) {
+    const isChecked = (event.target as HTMLInputElement).checked;
+    const postiArray = this.posti(tableIndex);
+
+    if (isChecked) {
+      // Se la checkbox è stata spuntata, aggiungiamo un nuovo posto con l'ID dell'invitato.
+      postiArray.push(this.creaPosto(invitato.id));
+    } else {
+      // Se la checkbox è stata despuntata, cerchiamo l'indice del posto corrispondente...
+      const seatIndexToRemove = postiArray.controls.findIndex(
+        control => control.value.invitatoId === invitato.id
+      );
+      // ... e se lo troviamo, lo rimuoviamo.
+      if (seatIndexToRemove !== -1) {
+        postiArray.removeAt(seatIndexToRemove);
+      }
+    }
   }
 
 

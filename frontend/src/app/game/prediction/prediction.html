@@ -8,7 +8,17 @@
   <h2>{{ gameSettings()?.predictionsLocked ? 'La Tua Previsione (Bloccata)' : 'Crea il Tuo Pronostico' }}</h2>
   @let invitatiTotali = this.invitati().length;
   @let invitatiSelezionati = this.selectedInvitatiIds();
-  <h4 style="margin: 0.5rem 0;"> Hai posizionato {{ invitatiSelezionati.size }} / {{invitatiTotali}}</h4>
+  <div class="prediction-information">
+    <h4> Hai posizionato {{ invitatiSelezionati.size }} / {{invitatiTotali}}</h4>
+    <button type="button" (click)="isDesktopMode.set(!isDesktopMode())" class="btn">
+      @if(isDesktopMode()){
+        <span>📱</span> Mobile
+      }@else{
+        <span>💻</span> Desktop
+      }
+    </button>
+  </div>
+
   <form [formGroup]="predictionForm" (ngSubmit)="onSubmit()">
     <div formArrayName="tavoli">
       @for (tavolo of tavoli.controls; track $index; let i = $index) {
@@ -31,39 +41,70 @@
 
           <h4>Assegna i posti:</h4>
           <div class="seats-grid" formArrayName="posti">
-            @for (posto of posti(i).controls; track $index; let j = $index) {
-              <div class="seat" [formGroupName]="j">
-                <label>Posto {{ j + 1 }}:</label>
-                <div class="seat-input-wrapper">
-                  <select formControlName="invitatoId">
-                    <option [ngValue]="null">-- Seleziona invitato --</option>
-                    @for (invitato of getAvailableInvitatiForSeat(i, j); track invitato.id) {
-                      <option [ngValue]="invitato.id">{{ invitato.cognome | titlecase}} {{ invitato.nome | titlecase }}</option>
+            @if(isDesktopMode()){
+              <div class="desktop-table-container">
+                <table class="invitati-table">
+                  <thead>
+                  <tr>
+                    <th>Seleziona</th>
+                    <th>Invitato</th>
+                    <th>Azienda</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                    @for (invitato of invitati(); track invitato.id) {
+                      <tr [class.disabled-row]="selectedInvitatiIds().has(invitato.id) && !isInvitatoSelectedForTable(invitato.id, i)">
+                        <td>
+                          <input
+                            type="checkbox"
+                            [checked]="isInvitatoSelectedForTable(invitato.id, i)"
+                            [disabled]="selectedInvitatiIds().has(invitato.id) && !isInvitatoSelectedForTable(invitato.id, i)"
+                            (change)="onGuestSelectionChange($event, invitato, i)"
+                          />
+                        </td>
+                        <td>{{ invitato.cognome | titlecase }} {{ invitato.nome | titlecase }}</td>
+                        <td>{{ invitato.company || 'N/A' }}</td>
+                      </tr>
                     }
-                  </select>
-
-                  @if (posto.value.invitatoId; as selectedId) {
-                    <button type="button" (click)="toggleTooltip($event, i, j)" class="info-seat-btn">i</button>
-                    @if (isTooltipActive(i, j)) {
-                      <div class="tooltip">
-                        @if (getInvitatoById(selectedId); as invitato) {
-                          <strong>{{ invitato.nome }} {{ invitato.cognome }}</strong>
-                          <small>Azienda: {{ invitato.company || 'N/A' }}</small>
-                          <small>Accompagnatore: {{ invitato.plus1 || 'Nessuno' }}</small>
-                        }
-                      </div>
-                    }
-                  }
-
-                  @if (!gameSettings()?.predictionsLocked) {
-                    <button type="button" (click)="rimuoviPosto(i, j)" class="remove-seat-btn">-</button>
-                  }
-                </div>
+                  </tbody>
+                </table>
               </div>
+            } @else {
+              @for (posto of posti(i).controls; track $index; let j = $index) {
+                <div class="seat" [formGroupName]="j">
+                  <label>Posto {{ j + 1 }}:</label>
+                  <div class="seat-input-wrapper">
+                    <select formControlName="invitatoId">
+                      <option [ngValue]="null">-- Seleziona invitato --</option>
+                      @for (invitato of getAvailableInvitatiForSeat(i, j); track invitato.id) {
+                        <option [ngValue]="invitato.id">{{ invitato.cognome | titlecase}} {{ invitato.nome | titlecase }}</option>
+                      }
+                    </select>
+
+                    @if (posto.value.invitatoId; as selectedId) {
+                      <button type="button" (click)="toggleTooltip($event, i, j)" class="info-seat-btn">i</button>
+                      @if (isTooltipActive(i, j)) {
+                        <div class="tooltip">
+                          @if (getInvitatoById(selectedId); as invitato) {
+                            <strong>{{ invitato.nome }} {{ invitato.cognome }}</strong>
+                            <small>Azienda: {{ invitato.company || 'N/A' }}</small>
+                            <small>Accompagnatore: {{ invitato.plus1 || 'Nessuno' }}</small>
+                          }
+                        </div>
+                      }
+                    }
+
+                    @if (!gameSettings()?.predictionsLocked) {
+                      <button type="button" (click)="rimuoviPosto(i, j)" class="remove-seat-btn">-</button>
+                    }
+                  </div>
+                </div>
+              }
+              @if (!gameSettings()?.predictionsLocked) {
+                <button type="button" (click)="aggiungiPosto(i)" class="add-seat-btn">Aggiungi Posto</button>
+              }
             }
-            @if (!gameSettings()?.predictionsLocked) {
-              <button type="button" (click)="aggiungiPosto(i)" class="add-seat-btn">Aggiungi Posto</button>
-            }
+
           </div>
         </div>
       }
