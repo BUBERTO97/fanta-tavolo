@@ -18,7 +18,15 @@
       }
     </button>
   </div>
-
+  <div class="sorting-controls" style="margin-bottom: 20px;">
+    <label for="sort-by" style="margin-right: 10px;">Ordina per:</label>
+    <select id="sort-by" (change)="sortOrder.set($any($event.target).value)">
+      <option value="cognome">Cognome</option>
+      <option value="nome">Nome</option>
+      <option value="company">Azienda</option>
+      <option value="plus1">Accompagnatore</option>
+    </select>
+  </div>
   <form [formGroup]="predictionForm" (ngSubmit)="onSubmit()">
     <div formArrayName="tavoli">
       @for (tavolo of tavoli.controls; track $index; let i = $index) {

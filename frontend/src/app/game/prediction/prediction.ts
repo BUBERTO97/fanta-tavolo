@@ -24,14 +24,34 @@ export class PredictionComponent implements OnInit {
   // Form principale
   predictionForm: FormGroup;
   invitati = toSignal(this.gameService.getInvitati(), { initialValue: [] });
+  sortOrder = signal('cognome');
   orderInvitati = computed(() => {
-    return this.invitati().sort((a, b) => {
-      const cognomeCompare = a.cognome.localeCompare(b.cognome, undefined, { sensitivity: 'base' });
-      if (cognomeCompare !== 0) {
-        return cognomeCompare;
+    const order = this.sortOrder();
+    return [...this.invitati()].sort((a, b) => {
+      let compare = 0;
+      switch (order) {
+        case 'nome':
+          compare = a.nome.localeCompare(b.nome, undefined, { sensitivity: 'base' });
+          break;
+        case 'company':
+          compare = (a.company || '').localeCompare(b.company || '', undefined, { sensitivity: 'base' });
+          break;
+        case 'plus1':
+          compare = (a.plus1 || '').localeCompare(b.plus1 || '', undefined, { sensitivity: 'base' });
+          break;
+        case 'cognome':
+        default:
+          compare = a.cognome.localeCompare(b.cognome, undefined, { sensitivity: 'base' });
+          break;
       }
-      return a.nome.localeCompare(b.nome, undefined, { sensitivity: 'base' });
-    })
+      if (compare === 0) {
+        compare = a.cognome.localeCompare(b.cognome, undefined, { sensitivity: 'base' });
+        if (compare === 0) {
+          return a.nome.localeCompare(b.nome, undefined, { sensitivity: 'base' });
+        }
+      }
+      return compare;
+    });
   });
   formeTavolo = ['tondo', 'rettangolare', 'ferro di cavallo'];
 
